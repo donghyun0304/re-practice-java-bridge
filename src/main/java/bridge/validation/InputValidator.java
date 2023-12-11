@@ -10,4 +10,10 @@ public class InputValidator {
             throw new IllegalArgumentException(ErrorMessage.NOT_ALL_NUMERIC);
         }
     }
+
+    public static void validateRangeNumber(int number){
+        if(!(number >= 3 && number <= 20)){
+            throw new IllegalArgumentException(ErrorMessage.NOT_RANGE);
+        }
+    }
 }
