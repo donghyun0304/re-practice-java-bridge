@@ -4,6 +4,7 @@ import bridge.command.BridgeMark;
 import bridge.command.MoveCommand;
 import bridge.command.TryCommand;
 import bridge.domain.Bridge;
+import bridge.domain.GameStatus;
 import bridge.domain.Result;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class BridgeGame {
     private Bridge downBridge;
     private int moveCount;
     private int retryCount;
+    private GameStatus gameStatus;
 
     public BridgeGame(Bridge gameBridge) {
         this.gameBridge = gameBridge;
@@ -29,6 +31,7 @@ public class BridgeGame {
         downBridge = new Bridge(new ArrayList<String>());
         moveCount = 0;
         retryCount = 1;
+        gameStatus = GameStatus.CONTINUE;
     }
 
 
@@ -62,6 +65,7 @@ public class BridgeGame {
                 downBridge.write(BridgeMark.FAIL);
             }
             this.moveCount++;
+            gameStatus = GameStatus.END;
             return false;
         }
         throw new IllegalStateException("[ERROR] 코드를 확인 해 주세요.");
@@ -81,6 +85,16 @@ public class BridgeGame {
             return true;
         }
         if(tryCommand == TryCommand.END){
+            return false;
+        }
+        throw new IllegalStateException("[ERROR] 코드를 확인 해 주세요.");
+    }
+
+    public boolean isEnd(){
+        if(gameStatus == GameStatus.END){
+            return true;
+        }
+        if(gameStatus == GameStatus.CONTINUE){
             return false;
         }
         throw new IllegalStateException("[ERROR] 코드를 확인 해 주세요.");
