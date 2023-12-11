@@ -34,6 +34,14 @@ public class BridgeGame {
         gameStatus = GameStatus.CONTINUE;
     }
 
+    private void reTryInit(){
+        upBridge = new Bridge(new ArrayList<String>());
+        downBridge = new Bridge(new ArrayList<String>());
+        moveCount = 0;
+        retryCount++;
+        gameStatus = GameStatus.CONTINUE;
+    }
+
 
 
     /**
@@ -83,14 +91,14 @@ public class BridgeGame {
      * <p>
      * 재시작을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public boolean retry(TryCommand tryCommand) {
+    public void retry(TryCommand tryCommand) {
         if(tryCommand == TryCommand.RETRY){
-            return true;
+            reTryInit();
         }
         if(tryCommand == TryCommand.END){
-            return false;
+            gameStatus = GameStatus.END;;
         }
-        throw new IllegalStateException("[ERROR] 코드를 확인 해 주세요.");
+//        throw new IllegalStateException("[ERROR] 코드를 확인 해 주세요.");
     }
 
     public boolean isEnd(){
@@ -101,5 +109,9 @@ public class BridgeGame {
             return false;
         }
         throw new IllegalStateException("[ERROR] 코드를 확인 해 주세요.");
+    }
+
+    public int getRetryCount() {
+        return retryCount;
     }
 }
