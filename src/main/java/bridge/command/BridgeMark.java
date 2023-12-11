@@ -3,7 +3,8 @@ package bridge.command;
 public enum BridgeMark {
 
     SUCCESS("O"),
-    FAIL("X");
+    FAIL("X"),
+    EMPTY("");
 
     private String mark;
 
