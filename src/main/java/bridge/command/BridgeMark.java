@@ -4,7 +4,7 @@ public enum BridgeMark {
 
     SUCCESS("O"),
     FAIL("X"),
-    EMPTY("");
+    EMPTY(" ");
 
     private String mark;
 
