@@ -13,4 +13,12 @@ public class Bridge {
     public int bridgeSize(){
         return bridge.size();
     }
+
+    public boolean isAbleMove(String command, int index){
+        if(bridge.get(index).equals(command)){
+            return true;
+        }
+        return false;
+    }
+
 }
