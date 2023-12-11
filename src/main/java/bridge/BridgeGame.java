@@ -1,9 +1,28 @@
 package bridge;
 
+import bridge.domain.Bridge;
+
+import java.util.ArrayList;
+
 /**
  * 다리 건너기 게임을 관리하는 클래스
  */
 public class BridgeGame {
+
+    private final Bridge bridge;
+    private Bridge upBridge;
+    private Bridge downBridge;
+
+    public BridgeGame(Bridge bridge) {
+        this.bridge = bridge;
+    }
+
+    public void init(){
+        upBridge = new Bridge(new ArrayList<String>());
+        downBridge = new Bridge(new ArrayList<String>());
+    }
+
+
 
     /**
      * 사용자가 칸을 이동할 때 사용하는 메서드
