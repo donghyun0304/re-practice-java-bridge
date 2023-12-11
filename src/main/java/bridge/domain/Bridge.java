@@ -31,4 +31,11 @@ public class Bridge {
     public List<String> getBridge() {
         return Collections.unmodifiableList(bridge);
     }
+
+    @Override
+    public String toString() {
+        return "Bridge{" +
+                "bridge=" + bridge +
+                '}';
+    }
 }
