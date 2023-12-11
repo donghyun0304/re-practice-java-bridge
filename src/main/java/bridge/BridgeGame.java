@@ -49,6 +49,17 @@ public class BridgeGame {
                 downBridge.write(BridgeMark.SUCCESS);
             }
         }
+        if(!ableMove){
+            if(moveCommand.getName().equals("U")){
+                upBridge.write(BridgeMark.FAIL);
+                downBridge.write(BridgeMark.EMPTY);
+            }
+            if(moveCommand.getName().equals("D")){
+                upBridge.write(BridgeMark.EMPTY);
+                downBridge.write(BridgeMark.FAIL);
+            }
+        }
+
         return new Result(upBridge.getBridge(), downBridge.getBridge());
     }
 
