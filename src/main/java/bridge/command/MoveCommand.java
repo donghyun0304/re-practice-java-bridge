@@ -18,4 +18,15 @@ public enum MoveCommand {
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] U 또는 D을 입력 해 주세요."));
     }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "MoveCommand{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
