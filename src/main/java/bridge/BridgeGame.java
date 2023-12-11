@@ -1,25 +1,33 @@
 package bridge;
 
+import bridge.command.BridgeMark;
+import bridge.command.MoveCommand;
 import bridge.domain.Bridge;
+import bridge.domain.Result;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * 다리 건너기 게임을 관리하는 클래스
  */
 public class BridgeGame {
 
-    private final Bridge bridge;
+    private final Bridge gameBridge;
     private Bridge upBridge;
     private Bridge downBridge;
+    private int moveCount;
+    private int retryCount;
 
-    public BridgeGame(Bridge bridge) {
-        this.bridge = bridge;
+    public BridgeGame(Bridge gameBridge) {
+        this.gameBridge = gameBridge;
     }
 
     public void init(){
         upBridge = new Bridge(new ArrayList<String>());
         downBridge = new Bridge(new ArrayList<String>());
+        moveCount = 0;
+        retryCount = 1;
     }
 
 
@@ -29,7 +37,19 @@ public class BridgeGame {
      * <p>
      * 이동을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public void move() {
+    public Result move(MoveCommand moveCommand) {
+        boolean ableMove = gameBridge.isAbleMove(moveCommand.getName(), this.moveCount);
+        if(ableMove){
+            if(moveCommand.getName().equals("U")){
+                upBridge.write(BridgeMark.SUCCESS);
+                downBridge.write(BridgeMark.EMPTY);
+            }
+            if(moveCommand.getName().equals("D")){
+                upBridge.write(BridgeMark.EMPTY);
+                downBridge.write(BridgeMark.SUCCESS);
+            }
+        }
+        return new Result(upBridge.getBridge(), downBridge.getBridge());
     }
 
     /**
