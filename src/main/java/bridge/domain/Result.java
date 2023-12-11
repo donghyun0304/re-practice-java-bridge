@@ -1,5 +1,6 @@
 package bridge.domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Result {
@@ -12,5 +13,19 @@ public class Result {
         this.downBridge = downBridge;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Result{" +
+                "upBridge=" + upBridge +
+                ", downBridge=" + downBridge +
+                '}';
+    }
+
+    public List<String> getUpBridge() {
+        return Collections.unmodifiableList(upBridge);
+    }
+
+    public List<String> getDownBridge() {
+        return Collections.unmodifiableList(downBridge);
+    }
 }
