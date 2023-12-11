@@ -2,6 +2,7 @@ package bridge.domain;
 
 import bridge.command.BridgeMark;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Bridge {
@@ -27,4 +28,7 @@ public class Bridge {
         bridge.add(bridgeMark.getMark());
     }
 
+    public List<String> getBridge() {
+        return Collections.unmodifiableList(bridge);
+    }
 }
