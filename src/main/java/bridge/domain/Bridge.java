@@ -1,5 +1,7 @@
 package bridge.domain;
 
+import bridge.command.BridgeMark;
+
 import java.util.List;
 
 public class Bridge {
@@ -19,6 +21,10 @@ public class Bridge {
             return true;
         }
         return false;
+    }
+
+    public void write(BridgeMark bridgeMark){
+        bridge.add(bridgeMark.getMark());
     }
 
 }
