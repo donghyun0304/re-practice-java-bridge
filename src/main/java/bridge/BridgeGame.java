@@ -53,6 +53,9 @@ public class BridgeGame {
                 downBridge.write(BridgeMark.SUCCESS);
             }
             this.moveCount++;
+            if(this.moveCount == gameBridge.bridgeSize()){
+                gameStatus = GameStatus.END;
+            }
             return true;
         }
         if(!ableMove){
