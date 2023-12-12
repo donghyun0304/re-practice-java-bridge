@@ -1,6 +1,7 @@
 package bridge.domain;
 
 import bridge.command.BridgeMark;
+import bridge.command.MoveCommand;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,12 +14,13 @@ public class Bridge {
         this.bridge = bridge;
     }
 
-    public int bridgeSize(){
+    public int getbridgeSize(){
         return bridge.size();
     }
 
-    public boolean isAbleMove(String command, int index){
-        if(bridge.get(index).equals(command)){
+    public boolean isAbleMove(MoveCommand command, int index){
+        String bridgeMark = bridge.get(index);
+        if(bridgeMark.equals(command.getName())){
             return true;
         }
         return false;
@@ -38,4 +40,5 @@ public class Bridge {
                 "bridge=" + bridge +
                 '}';
     }
+
 }

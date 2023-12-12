@@ -9,11 +9,15 @@ import bridge.domain.Result;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.PrimitiveIterator;
 
 /**
  * 다리 건너기 게임을 관리하는 클래스
  */
 public class BridgeGame {
+
+    private static final int INIT_MOVE_COUNT = 0;
+    private static final int INIT_RETRY_COUNT = 1;
 
     private final Bridge gameBridge;
     private Bridge upBridge;
@@ -22,6 +26,7 @@ public class BridgeGame {
     private int retryCount;
     private GameStatus gameStatus;
 
+
     public BridgeGame(Bridge gameBridge) {
         this.gameBridge = gameBridge;
     }
@@ -29,15 +34,15 @@ public class BridgeGame {
     public void init(){
         upBridge = new Bridge(new ArrayList<String>());
         downBridge = new Bridge(new ArrayList<String>());
-        moveCount = 0;
-        retryCount = 1;
+        moveCount = INIT_MOVE_COUNT;
+        retryCount = INIT_RETRY_COUNT;
         gameStatus = GameStatus.CONTINUE;
     }
 
     private void reTryInit(){
         upBridge = new Bridge(new ArrayList<String>());
         downBridge = new Bridge(new ArrayList<String>());
-        moveCount = 0;
+        moveCount = INIT_MOVE_COUNT;
         retryCount++;
         gameStatus = GameStatus.CONTINUE;
     }
@@ -50,28 +55,28 @@ public class BridgeGame {
      * 이동을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
     public boolean move(MoveCommand moveCommand) {
-        boolean ableMove = gameBridge.isAbleMove(moveCommand.getName(), this.moveCount);
+        boolean ableMove = gameBridge.isAbleMove(moveCommand, this.moveCount);
         if(ableMove){
-            if(moveCommand.getName().equals("U")){
+            if(moveCommand == MoveCommand.UP){
                 upBridge.write(BridgeMark.SUCCESS);
                 downBridge.write(BridgeMark.EMPTY);
             }
-            if(moveCommand.getName().equals("D")){
+            if(moveCommand == MoveCommand.DOWN){
                 upBridge.write(BridgeMark.EMPTY);
                 downBridge.write(BridgeMark.SUCCESS);
             }
             this.moveCount++;
-            if(this.moveCount == gameBridge.bridgeSize()){
+            if(isSuccess()){
                 gameStatus = GameStatus.END;
             }
             return true;
         }
         if(!ableMove){
-            if(moveCommand.getName().equals("U")){
+            if(moveCommand == MoveCommand.UP){
                 upBridge.write(BridgeMark.FAIL);
                 downBridge.write(BridgeMark.EMPTY);
             }
-            if(moveCommand.getName().equals("D")){
+            if(moveCommand == MoveCommand.DOWN){
                 upBridge.write(BridgeMark.EMPTY);
                 downBridge.write(BridgeMark.FAIL);
             }
@@ -113,5 +118,9 @@ public class BridgeGame {
 
     public int getRetryCount() {
         return retryCount;
+    }
+
+    public boolean isSuccess(){
+        return this.moveCount == gameBridge.getbridgeSize();
     }
 }

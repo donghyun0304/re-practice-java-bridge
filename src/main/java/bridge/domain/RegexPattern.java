@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public enum RegexPattern {
 
-    ONLY_NUMBER(Pattern.compile("^[0-9]+$")),
+    ONLY_NUMBER(Pattern.compile("^[0-9]+$"));
 
     private final Pattern pattern;
 

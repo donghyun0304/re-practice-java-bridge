@@ -19,9 +19,7 @@ public class OutputView {
      */
     public void printMap(Result result) {
         List<String> upBridge = result.getUpBridge();
-        System.out.println("upBridge = " + upBridge);
         List<String> downBridge = result.getDownBridge();
-        System.out.println("downBridge = " + downBridge);
         printFormat(upBridge, downBridge);
     }
 
@@ -30,9 +28,23 @@ public class OutputView {
      * <p>
      * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public void printResult(Result result) {
+    public void printResult(Result result, boolean isSuccess, int tryCount) {
         System.out.println("최종 게임 결과");
         printMap(result);
+        printSuccess(isSuccess);
+        printTryCount(tryCount);
+    }
+
+    private void printSuccess(boolean isSuccess){
+        if(isSuccess){
+            System.out.println("게임 성공 여부: " + "성공");
+            return;
+        }
+        System.out.println("게임 성공 여부: " + "실패");
+    }
+
+    private void printTryCount(int tryCount){
+        System.out.println("총 시도한 횟수: " + tryCount);
     }
 
     public void printStart(){
@@ -40,24 +52,26 @@ public class OutputView {
     }
 
     private void printLeftVerticalBar(){
-        System.out.print("[");
+        System.out.print("[ ");
     }
 
     private void printRightVerticalBar(){
-        System.out.print("]");
+        System.out.print(" ]");
     }
 
     private void printFormat(List<String> upBridge, List<String> downBridge){
         printLeftVerticalBar();
-        System.out.print(String.join(Delimiter.VERTICAL, upBridge));
+        System.out.print(String.join(" " + Delimiter.VERTICAL + " ", upBridge));
         printRightVerticalBar();
         System.out.println();
 
         printLeftVerticalBar();
-        System.out.print(String.join(Delimiter.VERTICAL, downBridge));
+        System.out.print(String.join(" " + Delimiter.VERTICAL + " ", downBridge));
         printRightVerticalBar();
         System.out.println();
     }
+
+
 
 
 }
